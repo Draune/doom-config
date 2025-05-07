@@ -75,5 +75,8 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 (require 'devil)
+(setq devil-lighter " \U0001F608")
+(setq devil-prompt "\U0001F608 %t")
 (global-devil-mode)
 (global-set-key (kbd "C-,") 'global-devil-mode)
+(assoc-delete-all "%k SPC" devil-special-keys)
