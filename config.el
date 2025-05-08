@@ -74,9 +74,19 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(require 'devil)
-(setq devil-lighter " \U0001F608")
-(setq devil-prompt "\U0001F608 %t")
-(global-devil-mode)
-(global-set-key (kbd "C-,") 'global-devil-mode)
-(assoc-delete-all "%k SPC" devil-special-keys)
+
+(use-package! devil
+  :demand t
+  :custom
+  (devil-exit-key ".")
+  (devil-all-keys-repeatable t)
+  (devil-highlight-repeatable t)
+  (devil-repeatable-keys '(("%k p" "%k n" "%k b" "%k f" "%k a" "%k e")
+                           ("%k m n" "%k m p")
+                           ("%k m b" "%k m f" "%k m a" "%k m e")
+                           ("%k m m f" "%k m m b" "%k m m a" "%k m m e"
+                            "%k m m n" "%k m m p" "%k m m u" "%k m m d")))
+  :bind
+  ([remap describe-key] . devil-describe-key)
+  :config
+  (global-devil-mode))
