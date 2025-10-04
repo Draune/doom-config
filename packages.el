@@ -64,3 +64,5 @@
 (package! rainbow-delimiters)
 
 (package! corfu-terminal)
+
+(package! google-translate)
