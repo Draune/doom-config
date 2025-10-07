@@ -66,3 +66,5 @@
 (package! corfu-terminal)
 
 (package! google-translate)
+
+(package! load-relative)
