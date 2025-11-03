@@ -19,3 +19,6 @@
   )
 
 (use-package! google-translate :demand t :defer t)
+
+;; So dired will show all files
+(remove-hook 'dired-mode-hook #'dired-omit-mode)

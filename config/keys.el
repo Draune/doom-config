@@ -60,6 +60,9 @@
 (map! "M-p" #'previous-line-or-history-element :map minibuffer-local-shell-command-map)
 (map! "M-n" #'next-line-or-history-element :map minibuffer-local-shell-command-map)
 
+;; Change "C-x b" so it will show all buffers
+(map! "C-x b" #'consult-buffer)
+
 ;; Setup which-key (key cheatsheet that is displayed during key sequences)
 (which-key-mode)
 (which-key-setup-minibuffer)
