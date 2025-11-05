@@ -68,3 +68,5 @@
 (package! google-translate)
 
 (package! load-relative)
+
+(package! eat)
