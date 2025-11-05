@@ -26,6 +26,7 @@
 	(setq exwm-input-global-keys
 	      '(
 		([?\C-q] . exwm-input-send-next-key)
+                ([?\s-r] . exwm-reset)
 		))
 	;; To use devil when working with X windows (like ", x o")
 	(push ?, exwm-input-prefix-keys)
@@ -51,7 +52,6 @@
 		([?\M-d] . [C-delete])
 		([?\;] . [?,])))
 	;; Lauch app
-	(map! "C-c r" #'exwm-reset)
 	(map! "C-c SPC" (lambda (cmd)
 			  (interactive (list (read-shell-command "$ ")))
 			  (start-process-shell-command cmd nil cmd)))
@@ -82,7 +82,7 @@
 
       ;; Screenshots
       (if (executable-find "maim")
-	  (map! :map 'override "C-c d s" (lambda () (interactive) (shell-command (format-time-string "maim -s '/home/louis/Pictures/%F_%X.png'"))))
+	  (map! "<print>" (lambda () (interactive) (shell-command (format-time-string "maim -s '/home/louis/Pictures/%F_%X.png'"))))
 	)
 
       (if (executable-find "xrandr")
