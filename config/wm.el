@@ -102,21 +102,13 @@
 	    ))
       (if (executable-find "xtrlock")
 	  (progn
-	    (require 'zone)
-	    (setq zone-programs [zone-pgm-whack-chars])
 	    (defun lock-screen ()
 	      "Lock screen using (zone) and xtrlock
  calls M-x zone on all frames and runs xtrlock"
 	      (interactive)
-	      (delete-other-windows)
-	      (switch-to-buffer "*scratch*")
 	      (save-excursion
-					;(shell-command "xtrlock &")
-		(set-process-sentinel
-		 (start-process "xtrlock" nil "xtrlock")
-		 '(lambda (process event)
-		    (zone-leave-me-alone)))
-		(zone-when-idle 1)))
+		(start-process "xtrlock" nil "xtrlock")
+		))
 	    (map! "C-c l" #'lock-screen)
 	    ))
       ))
