@@ -19,7 +19,7 @@ git clone https://github.com/Draune/doom-config.git ~/.config/doom
 
 To use with all the fonctionnalities with EXWM install (name of the executables):
 
-- to take sreenshots ("<print>"): maim
-- for sound control (sound keys like "<XF86AudioLowerVolume>"): pactl 
-- for brightness control (brightness keys like "<XF86MonBrightnessDown>"): xrandr
+- to take sreenshots ("\<print\>"): maim
+- for sound control (sound keys like "\<XF86AudioLowerVolume\>"): pactl 
+- for brightness control (brightness keys like "\<XF86MonBrightnessDown\>"): xrandr
 - to lock the screen ("C-c l"): xtrlock
