@@ -1,5 +1,8 @@
 # My Doom Emacs config
 
+![screenshot 1](https://github.com/Draune/doom-config/blob/master/screenshots/screenshot1.png)
+![screenshot 2](https://github.com/Draune/doom-config/blob/master/screenshots/screenshot2.png)
+
 What's in it:
 
 - Devil package (working with wich key)
