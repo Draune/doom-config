@@ -6,17 +6,20 @@
   (devil-exit-key "q")
   (devil-all-keys-repeatable t)
   (devil-highlight-repeatable t)
-  (devil-repeatable-keys '(("%k p" "%k n" "%k b" "%k f" "%k a" "%k e")
-			   ;; repeatable keys for window and buffer management and find-file and dired
-			   ;; I went a little crazy here but since most of the time actions on buffers
-			   ;; and windows are followed by other commands like "C-n" I believe it's ok
-			   ("%k c k" "%k x o" "%k x &" "%k x é" "%k x \"" "%k x à" "%k x %k f" "%k x d" "%k x b" "%k x 0" "%k x 1" "%k x 2" "%k x 3")
-			   ;; repeatable keys for movement M- keybindings
-			   ("%k %k n" "%k %k p" "%k %k f" "%k %k b")))
 
   :bind
   ([remap describe-key] . devil-describe-key)
   :config
+  (setq devil-repeatable-keys '(("%k p" "%k n" "%k b" "%k f" "%k a" "%k e")
+			        ;; repeatable keys for window and buffer management and find-file and dired
+			        ;; I went a little crazy here but since most of the time actions on buffers
+			        ;; and windows are followed by other commands like "C-n" I believe it's ok
+			        ("%k c k" "%k x o" "%k x &" "%k x é" "%k x \"" "%k x à" "%k x %k f" "%k x d" "%k x b" "%k x 0" "%k x 1" "%k x 2" "%k x 3")
+			        ;; repeatable keys for movement M- keybindings
+			        ("%k %k n" "%k %k p" "%k %k f" "%k %k b")))
+  (if exwm_up
+      (push '("%k <XF86AudioLowerVolume>" "%k <XF86AudioRaiseVolume>" "%k <XF86AudioMute>" "%k <XF86MonBrightnessDown>" "%k <XF86MonBrightnessUp>") devil-repeatable-keys))
+
   (global-devil-mode)
   (global-set-key (kbd "C-,") 'global-devil-mode)
   ;; I don't really know why but if I don't do this line before calling assoc-delete-all

@@ -12,9 +12,12 @@
    (shell-command-to-string
     (format "ps -o comm= -p %s" (emacs-ppid)))))
 
+(setq exwm_up nil)
+
 ;; Install exwm (just if Emacs was called by xinit)
 (if (equal (emacs-parent-name) "xinit")
     (progn
+      (setq exwm_up t)
       (use-package! exwm
 	:demand t
 	:config
@@ -98,8 +101,8 @@
 		    ))
               (message "Brightness: %d%%" (round (* brightness 100)))
               )
-	    (map! "<XF86MonBrightnessDown>" (lambda () (interactive) (brightness_add -0.05)))
-	    (map! "<XF86MonBrightnessUp>" (lambda () (interactive) (brightness_add 0.05)))
+	    (map! "C-<XF86MonBrightnessDown>" (lambda () (interactive) (brightness_add -0.05)))
+	    (map! "C-<XF86MonBrightnessUp>" (lambda () (interactive) (brightness_add 0.05)))
 	    ))
       (if (executable-find "xtrlock")
 	  (progn
@@ -144,8 +147,8 @@
                   )
                 )
               )
-            (map! "<XF86AudioLowerVolume>" (lambda () (interactive) (sound_volume_add -5)))
-	    (map! "<XF86AudioRaiseVolume>" (lambda () (interactive) (sound_volume_add 5)))
-            (map! "<XF86AudioMute>" #'sound_mute_toggle)
+            (map! "C-<XF86AudioLowerVolume>" (lambda () (interactive) (sound_volume_add -5)))
+	    (map! "C-<XF86AudioRaiseVolume>" (lambda () (interactive) (sound_volume_add 5)))
+            (map! "C-<XF86AudioMute>" #'sound_mute_toggle)
             ))
       ))
