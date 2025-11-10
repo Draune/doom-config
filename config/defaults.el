@@ -28,3 +28,11 @@
 
 ;; For `eat-eshell-visual-command-mode'.
 (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)
+
+;; For Jupyter Notebook in Emacs
+(use-package! ein :demand t :defer t)
+
+;; To set $PATH (for ein and eshell)
+(let ((my-path (expand-file-name "~/.local/bin")))
+  (setenv "PATH" (concat (getenv "PATH") ":" my-path))
+  (add-to-list 'exec-path my-path))

@@ -70,3 +70,5 @@
 (package! load-relative)
 
 (package! eat)
+
+(package! ein)
