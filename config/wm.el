@@ -85,7 +85,7 @@
 
       ;; Screenshots
       (if (executable-find "maim")
-	  (map! "<print>" (lambda () (interactive) (shell-command (format-time-string (format "maim -s '%s/Pictures/%%F_%%X.png'" (getenv "HOME"))))))
+	  (map! "C-<print>" (lambda () (interactive) (shell-command (format-time-string (format "maim -s '%s/Pictures/%%F_%%X.png'" (getenv "HOME"))))))
 	)
 
       (if (executable-find "xrandr")
