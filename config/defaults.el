@@ -33,6 +33,7 @@
 (use-package! ein
   :demand t
   :defer t
+  :config
   ;; polymode buffer name, for compatibility with ein
   (unless (fboundp 'pm--visible-buffer-name)
     (defun pm--visible-buffer-name (&rest _args)
