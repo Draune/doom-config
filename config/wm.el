@@ -71,7 +71,7 @@
 	;; to display graphics
 	(setq lemon-sparkline-use-xpm 1)
 	(setq lemon-monitors
-	      '(((lemon-time :display-opts '(:format "%H:%M"))
+	      '(((lemon-time :display-opts '(:format "%d %b %H:%M"))
                  (custom-set-faces
                   '(lemon-time-face ((t (:foreground "orange")))))
 		 (lemon-battery)
