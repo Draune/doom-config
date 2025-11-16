@@ -15,7 +15,7 @@
 (setq exwm_up nil)
 
 ;; Install exwm (just if Emacs was called by xinit)
-(if (equal (emacs-parent-name) "xinit")
+(if (or (equal (emacs-parent-name) "xinit") (equal (emacs-parent-name) "ly-dm"))
     (progn
       (setq exwm_up t)
       (use-package! exwm
