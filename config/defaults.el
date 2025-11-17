@@ -10,14 +10,6 @@
 ;; Increase font size
 (set-face-attribute 'default nil :height 130)
 
-;; Install corfu-terminal
-(use-package! corfu-terminal
-  :demand t
-  :config
-  (corfu-terminal-mode t)
-  (setq corfu-terminal-disable-on-gui nil)
-  )
-
 (use-package! google-translate :demand t :defer t)
 
 ;; So dired will show all files
