@@ -30,6 +30,8 @@
   (unless (fboundp 'pm--visible-buffer-name)
     (defun pm--visible-buffer-name (&rest _args)
       (buffer-name)))
+  ;; Images displayed in the buffer
+  (setq ein:output-area-inlined-images t)
   )
 
 ;; To set $PATH (for ein and eshell)
