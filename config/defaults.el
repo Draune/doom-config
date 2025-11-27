@@ -38,3 +38,24 @@
 (let ((my-path (expand-file-name "~/.local/bin")))
   (setenv "PATH" (concat (getenv "PATH") ":" my-path))
   (add-to-list 'exec-path my-path))
+
+;; Install lemon (system monitor in echo area)
+(use-package! lemon
+  :demand t
+  :config
+  (setq lemon-delay 0.2)
+  (setq lemon-update-interval 2)
+  ;; to display graphics
+  (setq lemon-sparkline-use-xpm 1)
+  (setq lemon-monitors
+	'(((lemon-time :display-opts '(:format "%d %b %H:%M"))
+           (custom-set-faces
+            '(lemon-time-face ((t (:foreground "orange")))))
+	   (lemon-battery)
+	   (lemon-cpu-linux :display-opts '(:sparkline (:type gridded)))
+	   (lemon-memory-linux :display-opts '(:sparkline (:type gridded)))
+	   (lemon-linux-network-rx :display-opts '(:sparkline (:type gridded)))
+	   (lemon-linux-network-tx :display-opts '(:sparkline (:type gridded)))
+	   )))
+
+  (lemon-mode 1))
