@@ -14,7 +14,8 @@
 
 (setq exwm_up nil)
 
-;; Install exwm (just if Emacs was called by xinit)
+;; Install exwm (just if Emacs was called by xinit or something that will launch it as a WM)
+;; "xephyr-exwm" is the name of the script used in my repo https://github.com/Draune/xephyr-exwm
 (if (or (equal (emacs-parent-name) "xinit") (equal (emacs-parent-name) "ly-dm") (equal (emacs-parent-name) "xephyr-exwm"))
     (progn
       (setenv "EXWM" "false")
