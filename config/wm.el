@@ -15,8 +15,9 @@
 (setq exwm_up nil)
 
 ;; Install exwm (just if Emacs was called by xinit)
-(if (or (equal (emacs-parent-name) "xinit") (equal (emacs-parent-name) "ly-dm"))
+(if (or (equal (emacs-parent-name) "xinit") (equal (emacs-parent-name) "ly-dm") (equal (emacs-parent-name) "xephyr-exwm"))
     (progn
+      (setenv "EXWM" "false")
       (setq exwm_up t)
       (use-package! exwm
 	:demand t
@@ -29,7 +30,6 @@
 	(setq exwm-input-global-keys
 	      '(
 		([?\C-q] . exwm-input-send-next-key)
-                ([?\s-r] . exwm-reset)
 		))
 	;; To use devil when working with X windows (like ", x o")
 	(push ?, exwm-input-prefix-keys)
@@ -62,72 +62,76 @@
 	(exwm-wm-mode)
 	)
 
-      ;; Screenshots
-      (if (executable-find "maim")
-	  (map! "C-<print>" (lambda () (interactive) (shell-command (format-time-string (format "maim -s '%s/Pictures/%%F_%%X.png'" (getenv "HOME"))))))
-	)
-
-      (if (executable-find "xrandr")
-	  (progn
-	    (setq brightness 1.0)
-	    (defun brightness_add (to_add)
-	      "Add brightness, take account of the current brightness (no more than 1.0 or less than 0.0)"
-	      (setq final_brightness (+ brightness to_add))
-	      (if (and (<= final_brightness 1.0) (>= final_brightness 0.0))
-		  (progn
-		    (shell-command (format "xrandr --output eDP-1 --brightness %f" final_brightness))
-		    (setq brightness final_brightness)
-		    ))
-              (message "Brightness: %d%%" (round (* brightness 100)))
-              )
-	    (map! "C-<XF86MonBrightnessDown>" (lambda () (interactive) (brightness_add -0.05)))
-	    (map! "C-<XF86MonBrightnessUp>" (lambda () (interactive) (brightness_add 0.05)))
-	    ))
-      (if (executable-find "xtrlock")
-	  (progn
-	    (defun lock-screen ()
-	      "Lock screen using (zone) and xtrlock
- calls M-x zone on all frames and runs xtrlock"
-	      (interactive)
-	      (save-excursion
-		(start-process "xtrlock" nil "xtrlock")
-		))
-	    (map! "C-c l" #'lock-screen)
-	    ))
-
-      ;; Volume Control (pulseaudio)
-      (if (executable-find "pactl")
+      ;; because I use Xephyr in KDE and then KDE is doing it's DE work
+      (if (or (equal (emacs-parent-name) "xinit") (equal (emacs-parent-name) "ly-dm"))
           (progn
-            (setq sound_volume 0)
-            (shell-command "pactl set-sink-volume @DEFAULT_SINK@ 0%")
-            (setq sound_mute nil)
-            (shell-command "pactl set-sink-mute @DEFAULT_SINK@ false")
-            (defun sound_volume_add (to_add)
-              (setq final_sound_volume (+ sound_volume to_add))
-	      (if (and (<= final_sound_volume 100) (>= final_sound_volume 0))
-		  (progn
-		    (shell-command (format "pactl set-sink-volume @DEFAULT_SINK@ %d%%" final_sound_volume))
-		    (setq sound_volume final_sound_volume)
-		    ))
-              (message "Volume: %d%%" sound_volume)
+            ;; Screenshots
+            (if (executable-find "maim")
+                (map! "C-<print>" (lambda () (interactive) (shell-command (format-time-string (format "maim -s '%s/Pictures/%%F_%%X.png'" (getenv "HOME"))))))
               )
-            (defun sound_mute_toggle ()
-              (interactive)
-              (if sound_mute
-                  (progn
-                    (setq sound_mute nil)
-                    (shell-command "pactl set-sink-mute @DEFAULT_SINK@ false")
-                    (message "Volume: on")
-                    )
+
+            (if (executable-find "xrandr")
                 (progn
-                  (setq sound_mute t)
-                  (shell-command "pactl set-sink-mute @DEFAULT_SINK@ true")
-                  (message "Volume: mute")
-                  )
-                )
-              )
-            (map! "C-<XF86AudioLowerVolume>" (lambda () (interactive) (sound_volume_add -5)))
-	    (map! "C-<XF86AudioRaiseVolume>" (lambda () (interactive) (sound_volume_add 5)))
-            (map! "C-<XF86AudioMute>" #'sound_mute_toggle)
+                  (setq brightness 1.0)
+                  (defun brightness_add (to_add)
+                    "Add brightness, take account of the current brightness (no more than 1.0 or less than 0.0)"
+                    (setq final_brightness (+ brightness to_add))
+                    (if (and (<= final_brightness 1.0) (>= final_brightness 0.0))
+             	        (progn
+             	          (shell-command (format "xrandr --output eDP-1 --brightness %f" final_brightness))
+             	          (setq brightness final_brightness)
+             	          ))
+                    (message "Brightness: %d%%" (round (* brightness 100)))
+                    )
+                  (map! "C-<XF86MonBrightnessDown>" (lambda () (interactive) (brightness_add -0.05)))
+                  (map! "C-<XF86MonBrightnessUp>" (lambda () (interactive) (brightness_add 0.05)))
+                  ))
+            (if (executable-find "xtrlock")
+                (progn
+                  (defun lock-screen ()
+                    "Lock screen using (zone) and xtrlock
+      calls M-x zone on all frames and runs xtrlock"
+                    (interactive)
+                    (save-excursion
+             	      (start-process "xtrlock" nil "xtrlock")
+             	      ))
+                  (map! "C-c l" #'lock-screen)
+                  ))
+
+            ;; Volume Control (pulseaudio)
+            (if (executable-find "pactl")
+                (progn
+                  (setq sound_volume 0)
+                  (shell-command "pactl set-sink-volume @DEFAULT_SINK@ 0%")
+                  (setq sound_mute nil)
+                  (shell-command "pactl set-sink-mute @DEFAULT_SINK@ false")
+                  (defun sound_volume_add (to_add)
+                    (setq final_sound_volume (+ sound_volume to_add))
+                    (if (and (<= final_sound_volume 100) (>= final_sound_volume 0))
+             	        (progn
+             	          (shell-command (format "pactl set-sink-volume @DEFAULT_SINK@ %d%%" final_sound_volume))
+             	          (setq sound_volume final_sound_volume)
+             	          ))
+                    (message "Volume: %d%%" sound_volume)
+                    )
+                  (defun sound_mute_toggle ()
+                    (interactive)
+                    (if sound_mute
+                        (progn
+                          (setq sound_mute nil)
+                          (shell-command "pactl set-sink-mute @DEFAULT_SINK@ false")
+                          (message "Volume: on")
+                          )
+                      (progn
+                        (setq sound_mute t)
+                        (shell-command "pactl set-sink-mute @DEFAULT_SINK@ true")
+                        (message "Volume: mute")
+                        )
+                      )
+                    )
+                  (map! "C-<XF86AudioLowerVolume>" (lambda () (interactive) (sound_volume_add -5)))
+                  (map! "C-<XF86AudioRaiseVolume>" (lambda () (interactive) (sound_volume_add 5)))
+                  (map! "C-<XF86AudioMute>" #'sound_mute_toggle)
+                  ))
             ))
       ))
