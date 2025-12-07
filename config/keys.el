@@ -20,6 +20,10 @@
   (if exwm_up
       (push '("%k <XF86AudioLowerVolume>" "%k <XF86AudioRaiseVolume>" "%k <XF86AudioMute>" "%k <XF86MonBrightnessDown>" "%k <XF86MonBrightnessUp>") devil-repeatable-keys))
 
+  ;; change the devil prompt for a devil smiley
+  (setq devil-lighter " \U0001F608")
+  (setq devil-prompt "\U0001F608 %t")
+
   (global-devil-mode)
   (global-set-key (kbd "C-,") 'global-devil-mode)
   ;; I don't really know why but if I don't do this line before calling assoc-delete-all
