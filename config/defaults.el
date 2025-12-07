@@ -21,19 +21,6 @@
 ;; For `eat-eshell-visual-command-mode'.
 (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)
 
-;; For Jupyter Notebook in Emacs
-(use-package! ein
-  :demand t
-  :defer t
-  :config
-  ;; polymode buffer name, for compatibility with ein
-  (unless (fboundp 'pm--visible-buffer-name)
-    (defun pm--visible-buffer-name (&rest _args)
-      (buffer-name)))
-  ;; Images displayed in the buffer
-  (setq ein:output-area-inlined-images t)
-  )
-
 ;; To set $PATH (for ein and eshell)
 (let ((my-path (expand-file-name "~/.local/bin")))
   (setenv "PATH" (concat (getenv "PATH") ":" my-path))
