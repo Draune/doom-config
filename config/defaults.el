@@ -50,9 +50,15 @@
   (setq lemon-monitors
 	'(((lemon-time :display-opts '(:format "%d %b %H:%M"))
            (custom-set-faces
-            '(lemon-time-face ((t (:foreground "orange")))))
+            '(lemon-time-face ((t (:foreground "#bd00ff")))))
 	   (lemon-battery)
-	   (lemon-cpu-linux :display-opts '(:sparkline (:type gridded)))
+           (custom-set-faces
+            '(lemon-battery-low-face ((t (:background "#ee27eb"))))
+            '(lemon-battery-medium-face ((t (:foreground "#ffd400"))))
+            '(lemon-battery-charging-face ((t (:foreground "#ee27eb"))))
+            '(lemon-battery-full-face ((t (:foreground "#ee27eb"))))
+            )
+           (lemon-cpu-linux :display-opts '(:sparkline (:type gridded)))
 	   (lemon-memory-linux :display-opts '(:sparkline (:type gridded)))
 	   (lemon-linux-network-rx :display-opts '(:sparkline (:type gridded)))
 	   (lemon-linux-network-tx :display-opts '(:sparkline (:type gridded)))
